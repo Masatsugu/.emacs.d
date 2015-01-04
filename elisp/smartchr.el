@@ -1,0 +1,1 @@
+<html><body>You are being <a href="https://raw.github.com/imakado/emacs-smartchr/master/smartchr.el">redirected</a>.</body></html>
