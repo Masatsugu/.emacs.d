@@ -56,10 +56,10 @@
 (setq recentf-max-saved-items 10)
 
 ;;; 履歴を次回Emacs起動時にも保存する
-(savehist-mode 1)
+;; (savehist-mode 1)
 
 ;;; モードラインに時刻を表示する
-(display-time)
+;;(display-time)
 
 ;;; GCを減らして軽くする(デフォルトの10倍)
 ;;; 現在のマシンパワーであればもっと大きくしてもよい
@@ -115,21 +115,22 @@
   )
  )
 
-;; emacs 起動時は英数モードから始める
-(add-hook 'after-init-hook 'mac-change-language-to-us)
-
-;; minibuffer 内は英数モードにする
-(add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
-
-;; [migemo]isearch のとき IME を英数モードにする
-(add-hook 'isearch-mode-hook 'mac-change-language-to-us)
+(cond((eq system-type 'darwin)
+  ;; emacs 起動時は英数モードから始める
+  (add-hook 'after-init-hook 'mac-change-language-to-us)
+  ;; minibuffer 内は英数モードにする
+  (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
+  ;; [migemo]isearch のとき IME を英数モードにする
+  (add-hook 'isearch-mode-hook 'mac-change-language-to-us)
+  )
+)
 
 ;;; auto-install.el
 ;; elispのインストール自動化
 ;; http://www.emacswiki.org/emacs/download/auto-install.el
   (when (require 'auto-install nil t)
     (setq auto-install-directory "~/.emacs.d/elisp/")
- ;; (auto-install-update-emacswiki-package-name t)
+    (auto-install-update-emacswiki-package-name t)
     (auto-install-compatibility-setup))
 
 
@@ -146,7 +147,6 @@
 
 ;; カーソル行に下線を表示
 ;;(setq hl-line-face 'underline)
-
 
 ;;; 括弧の範囲内を強調表示
 (setq show-paren-delay 0)
