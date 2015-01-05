@@ -27,3 +27,15 @@ cd 10_project/01_JapanPost/07_リリース/02_リリース資材/01_tags/
 ls -l
 rm -rf 20141224-1900/
 mkdir 20150105-1200\RES_SIR_8563_20150105
+clear
+Welcome to the Emacs shell
+cd 
+cd c:/home/10_project/01_JapanPost/
+ls -l
+cd 07_リリース/02_リリース資材/01_tags/
+ll
+ls -l
+rm -rf 20150105-1200/
+clear
+cls
+cldear
