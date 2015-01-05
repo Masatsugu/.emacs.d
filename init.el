@@ -697,3 +697,7 @@
   (local-set-key "\C-cl" 'eshell-clear))
 
 (add-hook 'eshell-mode-hook 'my-shell-hook)
+
+;; eshell alias
+(add-to-list 'eshell-command-aliases-list (list "ll" "ls -la"))
+(add-to-list 'eshell-command-aliases-list (list "rr" "rm -rf"))
