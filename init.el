@@ -779,4 +779,6 @@
                 (master-set-slave sql-buffer)
                 ))
     )
+
+
 (require 'magit)
