@@ -749,3 +749,45 @@
 (lambda ()  
   (unless (member (get-buffer "*scratch*") (buffer-list))
 (my-make-scratch 1))))
+
+;; packege管理
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+
+(el-get 'sync)
+
+;; SQL関連の設定
+(autoload 'sql-mode "sql" "SQL Edit mode" t)
+(autoload 'sql-oracle "sql" "SQL Edit mode" t)
+(autoload 'sql-ms "sql" "SQL Edit mode" t)
+(autoload 'master-mode "master" "Master mode minor mode." t)
+
+;; SQL mode に入った時点で sql-indent / sql-complete を読み込む
+(eval-after-load "sql"
+  '(progn
+     (load-library "sql-indent")
+     (load-library "sql-complete")
+     (load-library "sql-transform")
+     ))
+
+
+;; SQL モードの雑多な設定
+(add-hook 'sql-mode-hook
+    (function (lambda ()
+                (setq sql-indent-offset 4)
+                (setq sql-indent-maybe-tab t)
+                (local-set-key "\C-cu" 'sql-to-update) ; sql-transform 
+                 ;; SQLi の自動ポップアップ
+                   (setq sql-pop-to-buffer-after-send-region t)
+                ;; master モードを有効にし、SQLi をスレーブバッファにする
+                   (master-mode t)
+                (master-set-slave sql-buffer)
+                ))
+    )
