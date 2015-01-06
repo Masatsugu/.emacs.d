@@ -7,3 +7,6 @@
 [submodule "el-get/magit"]
 	path = el-get/magit
 	url = https://github.com/magit/magit.git
+[submodule "elisp/git-modes"]
+	path = elisp/git-modes
+	url = https://github.com/magit/git-modes
