@@ -702,8 +702,11 @@
 
 (defun my-shell-hook ()
   (local-set-key "\C-cl" 'eshell-clear))
-
 (add-hook 'eshell-mode-hook 'my-shell-hook)
+
+;; ‹–‚³‚ê‚´‚éText is read-only‚ð‰ñ”ð‚·‚é
+(defadvice eshell-get-old-input (after eshell-read-only-korosu activate)
+  (setq ad-return-value (substring-no-properties ad-return-value)))
 
 ;; eshell alias
 (add-to-list 'eshell-command-aliases-list (list "ll" "ls -la"))

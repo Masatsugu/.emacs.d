@@ -1,2 +1,5 @@
 pwd
-pwd
+cd
+cd .emacs.d/
+git log
+cd 
