@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: equal
+# key: eq
+# binding: direct-keybinding
+# --
+${1:column} = ${2:value}
