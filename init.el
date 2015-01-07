@@ -583,10 +583,20 @@
 ;; ãNìÆéûÇ…ç≈ëÂâª
 (set-frame-parameter nil 'fullscreen 'maximized)
 
-;; popwin-el
-;; https://github.com/m2ym/popwin-el
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
+
+;; popwin
+(setq pop-up-windows nil)
+(require 'popwin nil t)
+(when (require 'popwin nil t)
+  (setq anything-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+  (push '("*Completions*" :height 0.4) popwin:special-display-config)
+  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+  )
+
+;; grepÇ≈Ç‡popwinÇ™ìÆÇ≠ÇÊÇ§Ç…Ç∑ÇÈ
+(push '("*grep*" :noselect t) popwin:special-display-config)
 
 ;; quickrun.el
 ;; https://github.com/syohex/emacs-quickrun
@@ -782,16 +792,3 @@
 
 (require 'magit)
 
-;; popwin
-(setq pop-up-windows nil)
-(require 'popwin nil t)
-(when (require 'popwin nil t)
-  (setq anything-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-  )
-
-;; grepÇ≈Ç‡popwinÇ™ìÆÇ≠ÇÊÇ§Ç…Ç∑ÇÈ
-(push '("*grep*" :noselect t) popwin:special-display-config)
