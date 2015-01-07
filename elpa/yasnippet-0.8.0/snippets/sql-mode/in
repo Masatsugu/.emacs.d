@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: in
+# key: inl
+# binding: direct-keybinding
+# --
+in (${1:value1},${2:value2},${3:value3})

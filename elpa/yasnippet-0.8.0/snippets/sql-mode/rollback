@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rollback
+# key: rb
+# binding: direct-keybinding
+# --
+rollback;

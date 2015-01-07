@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: select
+# key: select
+# binding: direct-keybinding
+# --
+select ${3:column}
+from ${1:table} ${2:alias}
+where
+1=1
+and ${4:column} = ${5:value}
+;

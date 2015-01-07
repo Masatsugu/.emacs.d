@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: insert select
+# key: insert
+# binding: direct-keybinding
+# --
+insert into ${1:table}
+select *
+from ${2:table} ${3:alias}
+where
+1=1
+and ${4:column} = ${5:value}
+;

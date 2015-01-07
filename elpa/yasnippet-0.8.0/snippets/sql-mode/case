@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: case
+# key: case
+# binding: direct-keybinding
+# --
+(case when ${1:exp} then ${2:value}
+else ${3:value}
+end) as ${4:alias}

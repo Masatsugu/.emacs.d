@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: merge
+# key: merge
+# binding: direct-keybinding
+# --
+merge into ${1:to_table} ${2:alias}
+using ${3:from_table} ${4:alias}
+on ( ${5:to_column} = ${6:from_column} )
+when matched then
+update set 
+${7:to_column1} = ${8:from_column1}
+,${9:to_column2} = ${10:from_column2}
+when not matched then
+insert (
+${11:to_column1}
+,${12:to_column2}
+)
+values (
+${13:from_column1}
+,${14:from_column2}
+)
+;

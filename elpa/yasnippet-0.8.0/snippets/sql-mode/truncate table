@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: truncate table
+# key: truncate
+# binding: direct-keybinding
+# --
+truncate table ${1:table};

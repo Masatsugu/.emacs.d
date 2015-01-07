@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: update select
+# key: update
+# binding: direct-keybinding
+# --
+update ${1:table} ${2:alias}
+set (
+  ${3:column1}
+ ,${4:column2}
+) = (
+  select
+    ${9:column1}
+   ,${10:column2}
+　from ${5:table} ${6:alias}
+　where
+    1=1
+    and ${7:column} = ${8:value}
+)
+;

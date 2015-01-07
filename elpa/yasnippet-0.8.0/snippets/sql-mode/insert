@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: insert
+# key: insert
+# binding: direct-keybinding
+# --
+insert into ${1:table} ${2:alias}
+(${3:column})
+values
+(${4:value})
+;

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: create btree index
+# key: create
+# binding: direct-keybinding
+# --
+create index ${1:index_name}
+on ${2:table} (${3:column})
+;

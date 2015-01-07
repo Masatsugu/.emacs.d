@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: flashback query
+# key: flashback
+# binding: direct-keybinding
+# --
+select *
+from ${1:table} as of timestamp (systimestamp - interval '${2:min}' minute ) ${3:alias}
+where
+1=1
+and ${4:column} = ${5:value}
+;

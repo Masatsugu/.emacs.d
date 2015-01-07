@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: exists
+# key: exists
+# binding: direct-keybinding
+# --
+exists(
+select 1
+from ${1:table} ${2:alias}
+where
+1=1
+and ${3:column} = ${4:value}
+)

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: create table select
+# key: create
+# binding: direct-keybinding
+# --
+create table ${1:table} as
+select *
+from ${2:table} ${3:alias}
+where
+${4:column} = ${5:value}
+;

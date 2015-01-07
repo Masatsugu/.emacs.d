@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: update
+# key: update
+# binding: direct-keybinding
+# --
+update ${1:table} ${2:alias}
+set (
+${3:column} = ${4:value}
+)
+where
+1=1
+and ${5:column} = ${6:value}
+;

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: delete
+# key: delete
+# binding: direct-keybinding
+# --
+delete from ${1:table} ${2:alias}
+where
+1=1
+and ${3:column} = ${4:value}
+;
