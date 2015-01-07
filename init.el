@@ -221,8 +221,8 @@
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 
-;; C-x bにanything-for-filesを割り当てる
-(define-key global-map (kbd "\C-xb") 'anything-for-files)
+;; C-x bにanythingを割り当てる
+(define-key global-map (kbd "\C-xb") 'anything)
 
 ;; C-x gにanything-occurを割り当てる
 (define-key global-map (kbd "\C-xg") 'anything-occur)
@@ -384,7 +384,6 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-molokai)
-
 
 ;; カーソル行の単語コピー
 (defun kill-ring-save-current-word ()
@@ -782,3 +781,17 @@
 
 
 (require 'magit)
+
+;; popwin
+(setq pop-up-windows nil)
+(require 'popwin nil t)
+(when (require 'popwin nil t)
+  (setq anything-samewindow nil)
+  (setq display-buffer-function 'popwin:display-buffer)
+  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+  (push '("*Completions*" :height 0.4) popwin:special-display-config)
+  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+  )
+
+;; grepでもpopwinが動くようにする
+(push '("*grep*" :noselect t) popwin:special-display-config)
