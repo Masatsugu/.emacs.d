@@ -809,3 +809,6 @@
 
 (require 'magit)
 
+;; WindowsでEmacsを１つだけ起動して実行する
+;; (ファイルの関連付けは~/emacs/bin/emacsclientw.exeで行う)
+(server-start)
