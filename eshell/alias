@@ -1,3 +1,4 @@
-alias [masatsugu.yamada@laptop  $*
-alias rr rm -rf
+alias d (dired ".") $*
 alias ll ls -la
+alias rr rm -rf $*
+alias cs cygstart $*

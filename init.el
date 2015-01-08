@@ -685,7 +685,7 @@
 ;; prompt •¶š—ñ‚Ì•ÏX
 (setq eshell-prompt-function
       (lambda ()
-        (concat "[masatsugu.yamada@laptop "
+        (concat "["
                 (eshell/pwd)
                 (if (= (user-uid) 0) "]\n# " "]\n$ ")
                 )))
@@ -733,10 +733,6 @@
 ;; ‹–‚³‚ê‚´‚éText is read-only‚ğ‰ñ”ğ‚·‚é
 (defadvice eshell-get-old-input (after eshell-read-only-korosu activate)
   (setq ad-return-value (substring-no-properties ad-return-value)))
-
-;; eshell alias
-(add-to-list 'eshell-command-aliases-list (list "ll" "ls -la"))
-(add-to-list 'eshell-command-aliases-list (list "rr" "rm -rf"))
 
 ;; eshell•¶š‰»‚¯‘Îô
 (add-hook 'set-language-environment-hook 
