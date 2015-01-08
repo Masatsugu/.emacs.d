@@ -23,10 +23,6 @@
 ;;; ツールバー非表示
 (tool-bar-mode 0)
 
-;;; ファイルのフルパスをタイトルバーに表示
-(setq frame-title-format
-      (format "%%f - Emacs@%s" (system-name)))
-
 ;;; Windows で英数に DejaVu Sans Mono、日本語にMS Gothicを指定
 (when (eq window-system 'w32)
   (set-face-attribute 'default nil
