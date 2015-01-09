@@ -143,16 +143,16 @@
     (auto-install-compatibility-setup))
 
 
-;; 現在行をハイライト
-(global-hl-line-mode t)
-(defface my-hl-line-face
-  '((((class color) (background dark))  ; カラーかつ, 背景が dark ならば,
-     (:background "gray24" t))   ; 背景を紺色に
-    (((class color) (background light)) ; カラーかつ, 背景が light ならば,
-     (:background "PeachPuff" t))     ; 背景を緑色 に.
-    (t (:bold t)))
-  "hl-line's my face")
-(setq hl-line-face 'my-hl-line-face)
+;; 現在行をハイライト(重いからはずす)
+;; (global-hl-line-mode t)
+;; (defface my-hl-line-face
+;;   '((((class color) (background dark))  ; カラーかつ, 背景が dark ならば,
+;;      (:background "gray24" t))   ; 背景を紺色に
+;;     (((class color) (background light)) ; カラーかつ, 背景が light ならば,
+;;      (:background "PeachPuff" t))     ; 背景を緑色 に.
+;;     (t (:bold t)))
+;;   "hl-line's my face")
+;; (setq hl-line-face 'my-hl-line-face)
 
 ;; カーソル行に下線を表示
 ;;(setq hl-line-face 'underline)
@@ -314,7 +314,7 @@
  `(jaspace-highlight-eol-face ((t :foreground "dark slate grey"))))
 
 
-;; 折り返し制御 C-c C-lで切り替える
+;; 折り返し制御 C-c tlで切り替える
 (defun toggle-truncate-lines ()
   (interactive)
   (if truncate-lines
@@ -323,7 +323,7 @@
   (recenter))
 
 ;; 折り返し表示ON/OFF
-(global-set-key "\C-c\C-l" 'toggle-truncate-lines)  
+(global-set-key  (kbd "C-c t l") 'toggle-truncate-lines)
 
 ;;; M-kで行のコピー
 (defun duplicate-line()

@@ -4,8 +4,8 @@
 # binding: direct-keybinding
 # --
 select *
-from ${1:table} as of timestamp (systimestamp - interval '${2:min}' minute ) ${3:alias}
+from ${1:table} as of timestamp to_timestamp('${2:yyyymmdd} ${3:hh}:${4:mm}:${5:ss}','YYYYMMDD HH24:MI:SS') ${6:alias}
 where
 1=1
-and ${4:column} = ${5:value}
+and ${7:column} = ${8:value}
 ;
