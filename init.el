@@ -154,7 +154,7 @@
 ;;   "hl-line's my face")
 ;; (setq hl-line-face 'my-hl-line-face)
 
-;; カーソル行に下線を表示
+;; カーソル行に下n線を表示
 ;;(setq hl-line-face 'underline)
 
 ;;; 括弧の範囲内を強調表示
@@ -377,16 +377,47 @@
 
 
 ;; カラーテーマを設定
+;; (color-theme-molokai)
+;; color-theme-tangotangoを少し改造
 (require 'color-theme)
-(color-theme-initialize)
-(color-theme-molokai)
+(setq color-theme-load-all-themes nil)
+(require 'color-theme-tangotango)
+;; select theme - first list element is for windowing system, second is for console/terminal
+;; Source : http://www.emacswiki.org/emacs/ColorTheme#toc9
+(setq color-theme-choices 
+      '(color-theme-tangotango color-theme-tangotango))
+
+;; default-start
+(funcall (lambda (cols)
+    	   (let ((color-theme-is-global nil))
+    	     (eval 
+    	      (append '(if (window-system))
+    		      (mapcar (lambda (x) (cons x nil)) 
+    			      cols)))))
+    	 color-theme-choices)
+
+;; test for each additional frame or console
+(require 'cl)
+(fset 'test-win-sys 
+      (funcall (lambda (cols)
+    		 (lexical-let ((cols cols))
+    		   (lambda (frame)
+    		     (let ((color-theme-is-global nil))
+		       ;; must be current for local ctheme
+		       (select-frame frame)
+		       ;; test winsystem
+		       (eval 
+			(append '(if (window-system frame)) 
+				(mapcar (lambda (x) (cons x nil)) 
+					cols)))))))
+    	       color-theme-choices ))
+;; hook on after-make-frame-functions
+(add-hook 'after-make-frame-functions 'test-win-sys)
+(color-theme-tangotango)
+
+
 
 ;; カーソル行の単語コピー
-(defun kill-ring-save-current-word ()
-"Save current word to kill ring as if killed, but don't kill it."
-(interactive)
-(kill-new (current-word)))
-(global-set-key "\C-xw" 'kill-ring-save-current-word)
 
 
 ;; 指定した単語をハイライト
@@ -529,7 +560,8 @@
          (forward-line 1)
          )
        )))))
- (global-set-key (kbd "\C-c\C-w") 'wrap-region-by-string)
+(global-set-key (kbd "\C-c w i") 'wrap-region-by-string)
+
 
 
 
