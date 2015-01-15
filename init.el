@@ -837,3 +837,12 @@
 ;; WindowsでEmacsを１つだけ起動して実行する
 ;; (ファイルの関連付けは~/emacs/bin/emacsclientw.exeで行う)
 (server-start)
+
+;; XML整形
+(defun xml-align ()
+  (interactive
+   (save-restriction
+     (save-excursion
+       (sgml-pretty-print (region-beginning) (region-end))
+       ))))
+(add-hook 'xml-mode-hook 'xml-align)
