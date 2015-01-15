@@ -361,9 +361,11 @@
 
 
 ;; forward-word で単語の先頭へ移動する
-(require 'misc)
-(global-set-key "\M-f" 'forward-to-word)
-(global-set-key "\M-b" 'backward-to-word)
+(defun forward-word+1 ()
+  (interactive)
+  (forward-word)
+  (forward-char))
+(global-set-key (kbd "M-f") 'forward-word+1)
 
 ;;kill-word の後のポイントが単語の先頭になるようにする
 (defun kill-word+1 ()
@@ -373,7 +375,6 @@
   (delete-char 1))
 
 (global-set-key (kbd "M-d") 'kill-word+1)
-(global-set-key (kbd "C-M-d") 'kill-word+1)
 
 
 ;; カラーテーマを設定
