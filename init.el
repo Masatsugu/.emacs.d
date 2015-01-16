@@ -155,7 +155,7 @@
 ;; (setq hl-line-face 'my-hl-line-face)
 
 ;; カーソル行に下n線を表示
-;;(setq hl-line-face 'underline)
+;; (setq hl-line-face 'underline)
 
 ;;; 括弧の範囲内を強調表示
 (setq show-paren-delay 0)
@@ -689,6 +689,10 @@
 
 ;; 自動補完ON/OFF
 (global-set-key "\C-c\C-a" 'auto-complete-mode)
+;; デフォルトでAuto CompleteをONにする
+(auto-complete-mode t)
+;; Anything auto-completeもONにする
+(ac-mode 1)
 
 ;; sql-modeでauto completeをオンにする
 (add-to-list 'ac-modes 'sql-mode)
@@ -845,7 +849,30 @@
             (save-excursion
                 (sgml-mode)
                 (sgml-pretty-print (region-beginning) (region-end))
-                (sgml-mode)
+                (xml-mode)
                 ))))
 (add-hook 'xml-mode-hook 'xml-format)
 
+;; ログは読み取り専用モードで開く
+(add-to-list 'auto-mode-alist '("\\.log$" . read-only-mode))
+
+
+;; 巨大ファイルを開くときの関数
+(defun liteweight-on()
+  "to read large file."
+  (interactive)
+  (progn
+    (auto-complete-mode nil)
+    (ac-mode -1)
+    (autopair-global-mode -1)
+    (yas-minor-mode -1)
+    (global-undo-tree-mode -1)))
+
+(defun liteweight-off()
+  (interactive)
+  (progn
+    (auto-complete-mode t)
+    (ac-mode 1)
+    (autopair-global-mode 1)
+    (yas-minor-mode 1)
+    (global-undo-tree-mode 1)))
