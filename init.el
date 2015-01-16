@@ -932,3 +932,5 @@
   (or (dired-subtree-up arg)
       (dired-up-directory)))
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
+
+(define-key global-map (kbd "M-x") 'anything-M-x)
