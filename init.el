@@ -876,3 +876,6 @@
     (autopair-global-mode 1)
     (yas-minor-mode 1)
     (global-undo-tree-mode 1)))
+
+;; •¨—s’PˆÊ‚ÅˆÚ“®‚·‚é
+(setq line-move-visual nil)
