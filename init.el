@@ -688,10 +688,6 @@
 (setq ac-use-comphist t)
 ;; return‚Å‚Ì•âŠ®‹Ö~
 (define-key ac-completing-map (kbd "RET") nil)
-(setf (symbol-function 'yas-active-keys)
-      (lambda ()
-        (remove-duplicates
-         (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
 
 ;; java‚Ì©“®•âŠ®
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-java-complete")
@@ -934,3 +930,6 @@
 (define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
 
 (define-key global-map (kbd "M-x") 'anything-M-x)
+
+;; yasnippet‚Æauto-complete‚Ì‹£‡‚ğ‰ğÁ
+(setq ac-source-yasnippet nil)
