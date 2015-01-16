@@ -879,3 +879,10 @@
 
 ;; 物理行単位で移動する
 (setq line-move-visual nil)
+
+;; isearch(インクリメンタルサーチ)を超強化
+(isearch-mode 1)
+
+(package-initialize)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
