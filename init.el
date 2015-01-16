@@ -680,6 +680,18 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 (setq ac-menu-height 10)
+;; 3文字以上の入力で起動
+(setq ac-auto-start 3)
+;; 0.8秒でメニュー表示
+(setq ac-auto-show-menu 0.8)
+;; 補完候補をソート
+(setq ac-use-comphist t)
+;; returnでの補完禁止
+(define-key ac-completing-map (kbd "RET") nil)
+(setf (symbol-function 'yas-active-keys)
+      (lambda ()
+        (remove-duplicates
+         (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
 
 ;; javaの自動補完
 (add-to-list 'load-path "~/.emacs.d/elisp/auto-java-complete")
@@ -692,7 +704,7 @@
 ;; デフォルトでAuto CompleteをONにする
 (auto-complete-mode t)
 ;; Anything auto-completeもONにする
-(ac-mode 1)
+;; (ac-mode 1)
 
 ;; sql-modeでauto completeをオンにする
 (add-to-list 'ac-modes 'sql-mode)
@@ -883,3 +895,40 @@
 (package-initialize)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(require 'dired-subtree)
+;;; iを置き換え
+(define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
+;;; org-modeのようにTABで折り畳む
+(define-key dired-mode-map (kbd "<tab>") 'dired-subtree-remove)
+;;; C-x n nでsubtreeにナローイング
+(define-key dired-mode-map (kbd "C-x n n") 'dired-subtree-narrow)
+
+;;; ファイル名以外の情報を(と)で隠したり表示したり
+(require 'dired-details)
+(dired-details-install)
+(setq dired-details-hidden-string "")
+(setq dired-details-hide-link-targets nil)
+(setq dired-details-initially-hide nil)
+
+;;; dired-subtreeをdired-detailsに対応させる
+(defun dired-subtree-after-insert-hook--dired-details ()
+  (dired-details-delete-overlays)
+  (dired-details-activate))
+(add-hook 'dired-subtree-after-insert-hook
+          'dired-subtree-after-insert-hook--dired-details)
+
+;; find-dired対応
+(defadvice find-dired-sentinel (after dired-details (proc state) activate)
+  (ignore-errors
+    (with-current-buffer (process-buffer proc)
+      (dired-details-activate))))
+;; (progn (ad-disable-advice 'find-dired-sentinel 'after 'dired-details) (ad-update 'find-dired-sentinel))
+
+;;; [2014-12-30 Tue]^をdired-subtreeに対応させる
+(defun dired-subtree-up-dwim (&optional arg)
+  "subtreeの親ディレクトリに移動。そうでなければ親ディレクトリを開く(^の挙動)。"
+  (interactive "p")
+  (or (dired-subtree-up arg)
+      (dired-up-directory)))
+(define-key dired-mode-map (kbd "^") 'dired-subtree-up-dwim)
