@@ -344,7 +344,7 @@
 (global-set-key (kbd "M-@") 'bm-toggle)
 (global-set-key (kbd "M-[") 'bm-previous)
 (global-set-key (kbd "M-]") 'bm-next)
-(set-face-background 'bm-face "DeepPink3")
+(set-face-background 'bm-face "IndianRed1")
 
 ;;; ƒŠ[ƒWƒ‡ƒ“‚ğíœ‚Å‚«‚é‚æ‚¤‚É
 (delete-selection-mode t)
