@@ -26,8 +26,6 @@
 ;;; Windows で英数に DejaVu Sans Mono、日本語にMS Gothicを指定
 (when (eq window-system 'w32)
     (set-face-attribute 'default nil
-        ;;  :family "DejaVu Sans Mono"
-        ;;  :family "MeiryoKe_Gothic" 
         :family "Consolas"
         ;;  :family "Meiryo UI"                      
         :height 100)
@@ -302,7 +300,6 @@
 (define-key global-map (kbd "\C-x\C-r") 'replace-string)
 
 
-
 ;;; 全角スペースとかに色を付ける
 (require 'jaspace)
 (setq jaspace-alternate-jaspace-string "□")
@@ -347,6 +344,7 @@
 (global-set-key (kbd "M-@") 'bm-toggle)
 (global-set-key (kbd "M-[") 'bm-previous)
 (global-set-key (kbd "M-]") 'bm-next)
+(set-face-background 'bm-face "turquoise4")
 
 ;;; リージョンを削除できるように
 (delete-selection-mode t)
@@ -415,10 +413,6 @@
 ;; hook on after-make-frame-functions
 (add-hook 'after-make-frame-functions 'test-win-sys)
 (color-theme-tangotango)
-
-
-
-;; カーソル行の単語コピー
 
 
 ;; 指定した単語をハイライト
@@ -522,7 +516,6 @@
 
 ;; 画面を３分割する
 ;; http://d.hatena.ne.jp/yascentur/20110621/1308585547
-
 (defun split-window-three-n (num_wins)
     (interactive "p")
     (split-window-horizontally)
@@ -539,8 +532,6 @@
 
 ;; C-cC-dで時間挿入できるようにする
 (global-set-key "\C-c\C-d" 'my-get-date)
-
-
 
 ;; 選択した文字列を前後に文字を挿入する（自作関数）
 (defun wrap-region-by-string ()
@@ -562,8 +553,6 @@
                         )
                     )))))
 (global-set-key (kbd "\C-c w i") 'wrap-region-by-string)
-
-
 
 
 ;; 関数一覧
