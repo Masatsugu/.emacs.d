@@ -26,7 +26,7 @@
 ;;; Windows で英数に DejaVu Sans Mono、日本語にMS Gothicを指定
 (when (eq window-system 'w32)
     (set-face-attribute 'default nil
-        :family "Consolas"
+        :family "Fira Code"
         ;;  :family "Meiryo UI"                      
         :height 100)
     (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Meiryo UI")))
@@ -35,6 +35,12 @@
 (setq make-backup-files nil)
 ;;; .#* とかのバックアップファイルを作らない
 (setq auto-save-default nil)
+
+;; EmacsでCtlr+aとCtrl+eにもっと活躍してもらう
+;; http://d.hatena.ne.jp/orangeclover/20110301/1298910542
+;;(require 'sequential-command-config)
+;;(sequential-command-setup-keys)
+
 
 ;;; 行番号表示(重いから表示しない)
 ;;(global-linum-mode)
@@ -92,45 +98,6 @@
 (define-key global-map (kbd "<f7>") 'point-undo)
 (define-key global-map (kbd "S-<f7>") 'point-undo)
 
-;;; migemo
-(cond
-    ((eq system-type 'darwin)
-        ;; Mac(Cocoa Emacs)
-        (require 'migemo)
-        (setq migemo-command "/usr/local/bin/cmigemo")
-        (setq migemo-options '("-q" "--emacs"))
-        (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-        (setq migemo-user-dictionary nil)
-        (setq migemo-coding-system 'utf-8-unix)
-        (setq migemo-regex-dictionary nil)
-        (load-library "migemo")
-        (migemo-init)
-        )
-    ((eq system-type 'windows-nt)
-        ;; Windows
-        (setq migemo-command "~/emacs-24.4/bin/cmigemo")
-        (setq migemo-options '("-q" "--emacs" "-i" "\a"))
-        (setq migemo-dictionary (expand-file-name "~/.emacs.d/elisp/cmigemo-default-win64/dict/utf-8/migemo-dict"))
-        (setq migemo-user-dictionary nil)
-        (setq migemo-regex-dictionary nil)
-        (setq migemo-use-pattern-alist t)
-        (setq migemo-use-frequent-pattern-alist t)
-        (setq migemo-pattern-alist-length 1000)
-        (setq migemo-coding-system 'utf-8-unix)
-        (load-library "migemo")
-        (migemo-init)
-        )
-    )
-
-(cond((eq system-type 'darwin)
-        ;; emacs 起動時は英数モードから始める
-        (add-hook 'after-init-hook 'mac-change-language-to-us)
-        ;; minibuffer 内は英数モードにする
-        (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
-        ;; [migemo]isearch のとき IME を英数モードにする
-        (add-hook 'isearch-mode-hook 'mac-change-language-to-us)
-        )
-    )
 
 ;;; auto-install.el
 ;; elispのインストール自動化
@@ -142,15 +109,15 @@
 
 
 ;; 現在行をハイライト(重いからはずす)
-;; (global-hl-line-mode t)
-;; (defface my-hl-line-face
-;;   '((((class color) (background dark))  ; カラーかつ, 背景が dark ならば,
-;;      (:background "gray24" t))   ; 背景を紺色に
-;;     (((class color) (background light)) ; カラーかつ, 背景が light ならば,
-;;      (:background "PeachPuff" t))     ; 背景を緑色 に.
-;;     (t (:bold t)))
-;;   "hl-line's my face")
-;; (setq hl-line-face 'my-hl-line-face)
+ (global-hl-line-mode t)
+ (defface my-hl-line-face
+   '((((class color) (background dark))  ; カラーかつ, 背景が dark ならば,
+      (:background "gray24" t))   ; 背景を紺色に
+     (((class color) (background light)) ; カラーかつ, 背景が light ならば,
+      (:background "PeachPuff" t))     ; 背景を緑色 に.
+     (t (:bold t)))
+   "hl-line's my face")
+ (setq hl-line-face 'my-hl-line-face)
 
 ;; カーソル行に下n線を表示
 ;; (setq hl-line-face 'underline)
@@ -170,7 +137,7 @@
 
 
 ;; TABの表示幅。初期値は8
-(setq-default tab-width 4 indent-tabs-mode nil)
+(setq-default tab-width 2 indent-tabs-mode nil)
 
 ;; "C-t"でウィンドウを切り替える。初期値はtarnspose-chars
 (define-key global-map (kbd "C-t") 'other-window)
@@ -502,10 +469,6 @@
 (global-set-key "\M-p"(kbd "C-u 5 C-p"))
 
 
-;; EmacsでCtlr+aとCtrl+eにもっと活躍してもらう
-;; http://d.hatena.ne.jp/orangeclover/20110301/1298910542
-(require 'sequential-command-config)
-(sequential-command-setup-keys)
 
 
 (require 'undohist)
@@ -833,7 +796,7 @@
     )
 
 
-(require 'magit)
+;; (require 'magit)
 
 ;; WindowsでEmacsを１つだけ起動して実行する
 ;; (ファイルの関連付けは~/emacs/bin/emacsclientw.exeで行う)
@@ -922,3 +885,12 @@
 
 ;; yasnippetとauto-completeの競合を解消
 (setq ac-source-yasnippet nil)
+
+
+;; https://github.com/purcell/elisp-slime-nav
+;; M-. ポイント位置のシンボル（関数・変数）の定義元にジャンプ
+;; M-, ジャンプ前の位置に戻る
+;; C-c C-d d (C-c C-d C-d) シンボルのヘルプを参照する
+(require 'elisp-slime-nav)
+(dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
+  (add-hook hook 'elisp-slime-nav-mode))
